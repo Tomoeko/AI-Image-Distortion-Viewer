@@ -71,7 +71,7 @@ class ImageDistortionApp:
         # --- New: Added ELA 2 (Luminance) to the list ---
         map_options = [
             "Edge Detection", "Color Emboss", "Solarize", "Frequency (FFT)", 
-            "Noise Residual", "ELA", "ELA 2 (Luminance)", "Color Discrepancy"
+            "Noise Residual", "ELA (Error Level Analysis)", "ELA 2 (Luminance)", "Color Discrepancy"
         ]
         for i, option in enumerate(map_options):
             rb = ttk.Radiobutton(map_options_frame, text=option, variable=self.distortion_type, value=option, command=self.regenerate_distortion_map)
@@ -195,7 +195,7 @@ class ImageDistortionApp:
         dispatch = {
             "Edge Detection": self._create_edge_map, "Color Emboss": lambda img: img.filter(ImageFilter.EMBOSS),
             "Solarize": lambda img: ImageOps.solarize(img, threshold=128), "Frequency (FFT)": self._create_fft_map,
-            "Noise Residual": self._create_noise_map, "ELA": self._create_ela_map, 
+            "Noise Residual": self._create_noise_map, "ELA (Error Level Analysis)": self._create_ela_map, 
             "ELA 2 (Luminance)": self._create_ela_luminance_map, "Color Discrepancy": self._create_color_std_map
         }
         return dispatch.get(selection, self._create_edge_map)(image)
